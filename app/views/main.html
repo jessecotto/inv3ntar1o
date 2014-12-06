@@ -1,0 +1,59 @@
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+    <li class="active"><a ng-href="#">Main</a></li>
+
+  </ul>
+  <h3 class="text-muted">inventario</h3>
+</div>
+
+<form ng-submit="add()">
+    <div class="form-group">
+        <label>Item</label>
+        <input type="number" ng-model="item" class="form-control" ng-minlength=4 ng-maxlength=5>
+    </div>
+    <div class="form-group">
+        <label>Qty</label>
+        <input type="number" ng-model="qty" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>-/+</label>
+        <input type="range" ng-init="diff=0" ng-model="diff" min="-20" max="20"><strong class="form-control">{{ diff }}</strong>
+    </div>
+    <div class="form-group">
+        <label>OK</label>
+        <input type="radio" value="OK" ng-model="ok">
+        <br/>
+        <label>NOT OK:</label>
+        <input type="radio" value="NOT OK" ng-model="ok">
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary">
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+    <th>ITEM</th>
+    <th>QTY ON-HAND</th>
+    <th>-/+</th>
+    <th>OK</th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="(id, prod) in product | orderBy: 'item'" ng-class="{'i-short' : prod.diff < 0, 'i-over' : prod.diff > 0}">
+        <td>{{ prod.item }}</td>
+        <td>{{ prod.qty }}</td>
+        <td>{{ prod.diff }}</td>
+        <td>{{ prod.ok }}</td>
+        <td>
+            <a href="#edit/{{ prod.$id }}">Edit</a>
+            </t>
+        <td>
+            <a href="#" ng-click="remove(id)">Remove</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="footer">
+  <p><span class="glyphicon glyphicon-heart"></span> from Jess</p>
+</div>
